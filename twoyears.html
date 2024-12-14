@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facetime Date Invitation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #daa0a0ea;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: #fcd1cc;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px #ff6e6167;
+            text-align: center;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            color: #ff6f61;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .date {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6f61;
+        }
+        .munchies {
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+        }
+        .button {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        button {
+            background-color: #D4A5A5;
+            color: white;
+            border: solid #ff6f61;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff6f61;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6f61;
+            transform: rotate(45deg);
+            animation: float 3s ease-in-out infinite;
+        }
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6f61;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        .mad-cat {
+            display: none;
+            text-align: center;
+            position: relative;
+        }
+        .mad-cat img {
+            max-width: 200px;
+        }
+        .mad-cat h2 {
+            margin-top: 10px;
+            color: #ff3b2e;
+        }
+        .blushing-cat {
+            display: none;
+            text-align: center;
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        .blushing-cat img {
+            max-width: 250px;
+            transition: transform 0.5s ease-in-out;
+            animation: scaleUp 1.5s infinite alternate;
+        }
+        .blushing-cat h2 {
+            margin-top: 10px;
+            color: #ff6f61;
+            font-size: 24px;
+        }
+        @keyframes scaleUp {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(45deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5) rotate(90deg);
+            }
+        }
+        .sparkle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #e4b3b3;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: sparkle 1s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Hi Pookie! 💕</h1>
+            <p>Our special day is almost here, and I was wondering...</p>
+            <p>Will you join me for a cozy Facetime date?</p>
+            <p class="date">16.12.2024</p>
+            <p class="munchies"> We`ll order each other their favorite munchies 🍕🍫🍿</p>
+            <div class="button">
+                <button onclick="startHearts()">Of course! 💌</button>
+                <button id="noButton" onclick="moveNoButton()">No 😢</button>
+            </div>
+        </div>
+        <div class="mad-cat" id="madCat">
+            <img src="https://i.redd.it/i-keep-seeing-this-angry-cat-meme-does-anyone-know-what-v0-98vznktg9jw91.jpg?width=1080&format=pjpg&auto=webp&s=ba9c6d8b43fd5b943e6f65688688b2c926f7a6f9" alt="Mad Cat">
+            <h2>Pookster! 😾</h2>
+        </div>
+        <div class="blushing-cat" id="blushingCat">
+            <img src="https://i.pinimg.com/564x/59/8a/ba/598abac1a33211949014d2d4b1149def.jpg" alt="Blushing Cat">
+            <h2>I'm soooo excited! 🥰</h2>
+        </div>
+    </div>
+    <script>
+        let clickCount = 0;
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.animationDuration = Math.random() * 1.5 + 's';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1500);
+        }
+
+        function startHearts() {
+            setInterval(createHeart, 300);
+            setInterval(createSparkle, 500);
+            document.querySelector('.card').style.display = 'none';
+            document.getElementById('madCat').style.display = 'none'; // Hide the mad cat
+            document.getElementById('blushingCat').style.display = 'block'; // Show the blushing cat
+        }
+
+        function moveNoButton() {
+            clickCount++;
+            const noButton = document.getElementById('noButton');
+            const madCat = document.getElementById('madCat');
+            if (clickCount < 3) {
+                noButton.style.position = 'absolute';
+                noButton.style.top = Math.random() * 80 + 'vh';
+                noButton.style.left = Math.random() * 80 + 'vw';
+            } else {
+                noButton.style.display = 'none';
+                madCat.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
