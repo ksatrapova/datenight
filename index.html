@@ -218,33 +218,19 @@
             document.getElementById('blushingCat').style.display = 'block'; // Show the blushing cat
         }
 
-function moveNoButton() {
-    clickCount++;
-    const noButton = document.getElementById('noButton');
-    const madCat = document.getElementById('madCat');
-
-    // Get the dimensions of the window
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    if (clickCount < 3) {
-        // Randomly position the "No" button within the bounds of the screen
-        noButton.style.position = 'absolute';
-
-        // Ensure that the button stays within the visible area by subtracting the button's size from the screen's width and height
-        const maxLeft = windowWidth - noButton.offsetWidth;
-        const maxTop = windowHeight - noButton.offsetHeight;
-
-        // Set random position within the bounds
-        noButton.style.top = Math.random() * maxTop + 'px';  // Random top position
-        noButton.style.left = Math.random() * maxLeft + 'px'; // Random left position
-    } else {
-        // After 3 clicks, hide the button and show the mad cat
-        noButton.style.display = 'none';
-        madCat.style.display = 'block';
-    }
-}
-        
+        function moveNoButton() {
+            clickCount++;
+            const noButton = document.getElementById('noButton');
+            const madCat = document.getElementById('madCat');
+            if (clickCount < 3) {
+                noButton.style.position = 'absolute';
+                noButton.style.top = Math.random() * 80 + 'vh';
+                noButton.style.left = Math.random() * 80 + 'vw';
+            } else {
+                noButton.style.display = 'none';
+                madCat.style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>
