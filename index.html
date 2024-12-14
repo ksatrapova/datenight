@@ -222,15 +222,22 @@
             clickCount++;
             const noButton = document.getElementById('noButton');
             const madCat = document.getElementById('madCat');
+        
+            // Get the dimensions of the window
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+        
             if (clickCount < 3) {
+                // Randomly position the "No" button within the bounds of the screen
                 noButton.style.position = 'absolute';
-                noButton.style.top = Math.random() * 80 + 'vh';
-                noButton.style.left = Math.random() * 80 + 'vw';
+                noButton.style.top = Math.random() * (windowHeight - noButton.offsetHeight) + 'px'; // Random top position within window height
+                noButton.style.left = Math.random() * (windowWidth - noButton.offsetWidth) + 'px'; // Random left position within window width
             } else {
                 noButton.style.display = 'none';
                 madCat.style.display = 'block';
             }
         }
+
     </script>
 </body>
 </html>
